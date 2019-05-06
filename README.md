@@ -12,5 +12,5 @@ Check back soon for an installable version.
 
 ### Screenshot
 <h3 align="center">
-  <img src="https://user-images.githubusercontent.com/4778878/57198541-b1e67400-6f39-11e9-8b1b-7098f12e0f0b.png" alt="fastlane Logo" />
+  <img src="https://user-images.githubusercontent.com/4778878/57253894-74efaf80-7015-11e9-9297-9d33b109d484.png" alt="fastlane Logo" />
 </h3>
