@@ -69,20 +69,24 @@ class ScoreCardView:
 
         tools = "pan,wheel_zoom,box_zoom,reset,crosshair,save"
         self.plot = figure(plot_width=1050, plot_height=500, tools=tools, active_drag="box_zoom")
-        # self.plot.min_border_left = options.MIN_BORDER
-        # self.plot.min_border_bottom = options.MIN_BORDER
+        self.plot.min_border_left = 5
+        self.plot.min_border_bottom = 5
         self.plot.add_tools(HoverTool(show_arrow=False, line_policy='next',
                                       tooltips=[('Label', '@roi_name'),
                                                 ('Dose', '$x'),
                                                 ('Volume', '$y')]))
-        # self.plot.xaxis.axis_label_text_font_size = options.PLOT_AXIS_LABEL_FONT_SIZE
-        # self.plot.yaxis.axis_label_text_font_size = options.PLOT_AXIS_LABEL_FONT_SIZE
-        # self.plot.xaxis.major_label_text_font_size = options.PLOT_AXIS_MAJOR_LABEL_FONT_SIZE
-        # self.plot.yaxis.major_label_text_font_size = options.PLOT_AXIS_MAJOR_LABEL_FONT_SIZE
+        self.plot.xaxis.axis_label_text_font_size = "12pt"
+        self.plot.yaxis.axis_label_text_font_size = "12pt"
+        self.plot.xaxis.major_label_text_font_size = "10pt"
+        self.plot.yaxis.major_label_text_font_size = "10pt"
         self.plot.yaxis.axis_label_text_baseline = "bottom"
-        # self.plot.lod_factor = options.LOD_FACTOR  # level of detail during interactive plot events
+        self.plot.lod_factor = 100  # level of detail during interactive plot events
 
         self.plot.line('x', 'y', source=self.source_plot, line_width=3, alpha=1, line_dash='solid')
+
+        # Set x and y axis labels
+        self.plot.xaxis.axis_label = "Dose (Gy)"
+        self.plot.yaxis.axis_label = "Normalized Volume"
 
     def __do_bind(self):
         self.button_calculate.on_click(self.initialize_source_data)
@@ -274,6 +278,7 @@ class ScoreCardView:
         self.roi_key_map = {name: self.roi_keys[i] for i, name in enumerate(self.roi_names)}
         self.select_roi.options = [''] + self.roi_names
         self.update_roi_select()
+        self.match_rois()
 
     def update_roi_select(self):
         index = self.source_data.data['roi_template'].index(self.select_roi_template.value)
@@ -374,7 +379,7 @@ class ScoreCardView:
 
     def update_dvh(self, key):
         if key:
-            y_axis = self.dvh[key].counts
+            y_axis = np.divide(self.dvh[key].counts, 100)
             self.source_plot.data = {'x': list(range(len(y_axis))), 'y': y_axis}
         else:
             self.source_plot.data = {'x': [], 'y': []}
