@@ -50,8 +50,9 @@ class ScoreCardView:
         self.button_refresh_plans = Button(label='Scan DICOM Inbox', button_type='primary')
         self.select_protocol = Select(title='Protocol:', options=self.protocols.protocol_names, value='TG101', width=150)
         self.select_fx = Select(title='Fractions:', value='3', options=self.fractionation_options, width=60)
-        self.button_calculate = Button(label='Calculate', button_type='primary')
+        self.button_calculate = Button(label='Calculate Scorecard', button_type='primary')
         self.button_delete_roi = Button(label='Delete Constraint', button_type='warning')
+        self.button_calculate_dvhs = Button(label='Calculate DVHs', button_type='primary', width=200)
         self.select_roi_template = Select(title='Template ROI:')
         self.select_roi = Select(title='Plan ROI:')
         self.max_dose_volume = Div(text="<b>Point defined as %scc" % MAX_DOSE_VOLUME)
@@ -76,7 +77,7 @@ class ScoreCardView:
         self.plot.min_border_left = 60
         self.plot.min_border_bottom = 60
         self.plot.add_tools(HoverTool(show_arrow=False, line_policy='next',
-                                      tooltips=[('Label', '@roi'),
+                                      tooltips=[('Plan ROI', '@roi'),
                                                 ('Dose', '$x'),
                                                 ('Volume', '$y')]))
         self.plot.xaxis.axis_label_text_font_size = "12pt"
@@ -92,10 +93,10 @@ class ScoreCardView:
 
         columns = [TableColumn(field="roi", title="Select Structures to Plot")]
         self.plot_rois = DataTable(source=self.source_plot, columns=columns, index_position=None,
-                                   width=200, height=425)
+                                   width=200, height=350)
 
     def __do_bind(self):
-        self.button_calculate.on_click(self.update_dvh_plot)
+        self.button_calculate.on_click(self.initialize_source_data)
         self.button_delete_roi.on_click(self.delete_selected_rows)
         self.select_protocol.on_change('value', self.protocol_listener)
         self.select_fx.on_change('value', self.fx_listener)
@@ -104,6 +105,7 @@ class ScoreCardView:
         self.select_roi_template.on_change('value', self.template_roi_listener)
         self.select_roi.on_change('value', self.roi_listener)
         self.source_data.selected.on_change('indices', self.source_select)
+        self.button_calculate_dvhs.on_click(self.update_dvh_plot)
 
     def __do_layout(self):
 
@@ -112,7 +114,8 @@ class ScoreCardView:
                              row(self.select_roi_template, self.select_roi),
                              self.max_dose_volume,
                              self.data_table,
-                             row(self.plot, Spacer(width=10), self.plot_rois))
+                             row(self.plot, Spacer(width=10), column(self.button_calculate_dvhs,
+                                                                     self.plot_rois)))
 
     @property
     def __pass_fail_formatter(self):
@@ -192,13 +195,13 @@ class ScoreCardView:
             self.button_calculate.button_type = 'success'
             total = len(indices)
             for i in indices:
-                self.button_calculate.label = 'Calculating ScoreCard %s of %s' % (i, total)
+                self.button_calculate.label = 'Calculating ScoreCard %s of %s' % (i+1, total)
                 key = self.roi_key_map[new]
                 self.calculate_dvh(key)
                 self.update_table_row(i, key)
                 self.source_data.patch({'roi_key': [(i, key)]})
                 self.update_constraint(i)
-            self.button_calculate.label = 'Calculate DVHs'
+            self.button_calculate.label = 'Calculate Scorecard'
             self.button_calculate.button_type = 'primary'
         else:
             if self.button_calculate.button_type == 'primary' and self.select_roi_template.value in self.roi_override:
@@ -239,6 +242,8 @@ class ScoreCardView:
                     'constraint_calc': [''] * row_count,
                     'pass_fail': [''] * row_count,
                     'calc_type': data['calc_type']}
+
+        self.source_plot.data = {'x': [], 'y': [], 'color': [], 'roi': [], 'roi_key': []}
 
         self.source_data.data = new_data
         self.update_roi_template_select()
@@ -325,12 +330,12 @@ class ScoreCardView:
     def calculate_dvhs(self):
         current_button_type = self.button_calculate.button_type
         current_button_label = self.button_calculate.label
-        self.button_calculate.button_type = 'success'
+        self.button_calculate_dvhs.button_type = 'success'
 
         files = self.plans[self.select_plan.value]
         total = len(self.roi_keys)
         for i, key in enumerate(list(self.roi_keys)):
-            self.button_calculate.label = 'Calculating DVH: %s of %s' % (i, total)
+            self.button_calculate_dvhs.label = 'Calculating DVH: %s of %s' % (i+1, total)
             if key not in list(self.dvh):
                 self.dvh[key] = dvhcalc.get_dvh(files['rtstruct'], files['rtdose'], key)
         self.dvh_counts = [self.dvh[key].counts for key in self.roi_keys]
@@ -339,13 +344,17 @@ class ScoreCardView:
 
     def calculate_protocol_dvhs(self):
         self.dvh = {}
+        total = len([key for key in self.source_data.data['roi_key'] if key != ''])
+        counter = 1
         for i, key in enumerate(self.source_data.data['roi_key']):
             if key:
+                self.button_calculate.label = 'Calculating Scorecard %s of %s' % (counter, total)
                 self.calculate_dvh(key)
                 self.update_table_row(i, key)
                 self.update_constraint(i)
+                counter += 1
 
-        self.button_calculate.label = 'Calculate DVHs'
+        self.button_calculate.label = 'Calculate Scorecard'
         self.button_calculate.button_type = 'primary'
 
     def update_constraint(self, index):
@@ -393,14 +402,14 @@ class ScoreCardView:
 
     def pad_dvh_counts(self):
         self.bin_count = max([len(dvh) for dvh in self.dvh_counts])
-        x_axis = np.divide(np.array(list(range(self.bin_count))), 100.)
         self.dvh_counts_for_plot = []
         self.bin_counts = []
         for dvh in self.dvh_counts:
             if dvh[0]:
-                self.dvh_counts_for_plot.append(np.append(np.divide(dvh, dvh[0]), np.array([0] * (self.bin_count - len(dvh)))))
+                self.dvh_counts_for_plot.append(np.divide(dvh, dvh[0]))
             else:
                 self.dvh_counts_for_plot.append(np.array([0] * self.bin_count))
+            x_axis = np.divide(np.array(list(range(len(self.dvh_counts_for_plot[-1])))), 100.)
             self.bin_counts.append(x_axis)
 
     def update_dvh_plot(self):
@@ -412,4 +421,5 @@ class ScoreCardView:
                                  'color': colors,
                                  'roi': self.roi_names,
                                  'roi_key': self.roi_keys}
-
+        self.button_calculate_dvhs.label = 'Calculate DVHs'
+        self.button_calculate_dvhs.button_type = 'primary'
