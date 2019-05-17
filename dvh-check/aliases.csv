@@ -1,5 +1,7 @@
 Bile Duct,
 Bladder, Bladder Wall
+Bone Marrow, TotalBM
+Bone Marrow (Lower Pelvis), LowerPelvisBM
 Bowel
 Brachial Plexus
 Brachial Plexus (Ipsilateral)
@@ -8,16 +10,18 @@ Bronchus (smaller airways)
 Cauda Equina, Cauda
 Cochlea
 Colon, Large Bowel
+Colon (Sigmoid), S.Bowel
 Duodenum
 Esophagus
 Femoral Heads, Femoral Head
+Genitalia
 Great Vessels
 Heart/Pericardium, Heart
 Jejunum / Ileum, Small Bowel
 Kidney (Ipsilateral)
 Kidney (Total), Kidneys, Both Kidneys, Whole Kidney
 Liver
-Lung, Whole Lung - ITV, Whole Lung, Lungs
+Lung, Whole Lung, Lungs, Lung - ITV, Whole Lung - ITV
 Optic Pathway
 Penile Bulb
 Rectum
@@ -25,8 +29,9 @@ Renal Hilum / Vascular Trunk
 Rib, Ribs
 Sacral Plexus
 Skin
+Spinal Canal
 Spinal Cord, Cord
 Spinal Cord Sub-Volume, Spinal Cord SubVolume Cord Sub-Volume, Cord SubVolume
 Stomach
-TBT, Trachea + Bronchial Tree, Trachea and Bronchial Tree, Trachea and Bronchus
+Trachea & Bronchial Tree, TBT, Trachea + Bronchial Tree, Trachea and Bronchial Tree, Trachea and Bronchus
 Ureter

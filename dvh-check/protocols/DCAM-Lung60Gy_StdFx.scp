@@ -1,0 +1,14 @@
+# Description: 30fx constraints for 60Gy Lung at DCAM
+Esophagus
+    D_max   66
+    Mean    34
+Heart/Pericardium
+    D_30%    40
+Lung
+    V_20    35%
+    V_5     65%
+    Mean    20
+Spinal Canal
+    D_max   50
+Spinal Cord
+    D_max   45

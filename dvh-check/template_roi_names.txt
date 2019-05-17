@@ -1,0 +1,37 @@
+Bile Duct
+Bladder
+Bone Marrow
+Bone Marrow (Lower Pelvis)
+Bowel
+Brachial Plexus
+Brachial Plexus (Ipsilateral)
+Brainstem
+Bronchus (smaller airways)
+Cauda Equina
+Cochlea
+Colon
+Colon (Sigmoid)
+Duodenum
+Esophagus
+Femoral Heads
+Genitalia
+Great Vessels
+Heart/Pericardium
+Jejunum / Ileum
+Kidney (Ipsilateral)
+Kidney (Total)
+Liver
+Lung
+Optic Pathway
+Penile Bulb
+Rectum
+Renal Hilum / Vascular Trunk
+Rib
+Sacral Plexus
+Skin
+Spinal Canal
+Spinal Cord
+Spinal Cord Sub-Volume
+Stomach
+Trachea & Bronchial Tree
+Ureter

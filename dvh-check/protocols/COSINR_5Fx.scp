@@ -1,3 +1,4 @@
+# Description: 5fx Constraints per COSINR Protocol
 Bile Duct
     D_0.3   41
 Bladder
@@ -6,17 +7,12 @@ Bladder
 Bowel
     D_max   40
     D_20    28.5
-Brachial Plexus
 Brachial Plexus (Ipsilateral)
     D_max   32
     D_3     30
-Brainstem
-Bronchus (smaller airways)
 Cauda Equina
     D_max   32
     D_5     30
-Cochlea
-Colon
 Duodenum
     D_max   30
     D_10    18.3
@@ -31,7 +27,6 @@ Great Vessels
 Heart/Pericardium
     D_max   38
     D_15    32
-Jejunum / Ileum
 Kidney (Ipsilateral)
     V_14.5  130
 Kidney (Total)
@@ -42,7 +37,6 @@ Lung
     V_13.5  37%
     V_13.5  1000
     V_12.5  1500
-Optic Pathway
 Penile Bulb
     D_3     30
 Rectum
@@ -64,7 +58,6 @@ Spinal Cord
     D_max   28
     D_0.35  22
     D_1.2   15.6
-Spinal Cord Sub-Volume
 Stomach
     D_max   35
     D_5     26.5

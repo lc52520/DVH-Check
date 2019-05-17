@@ -12,7 +12,7 @@ class Protocols:
     def __load(self):
         self.data = {}
         for f in self.file_names:
-            file_name = basename(f)
+            file_name = str(basename(f))
             name = file_name.split('_')[0]
             fxs = file_name.split('_')[1].replace('.scp', '')
             if name not in list(self.data):
@@ -29,12 +29,13 @@ class Protocols:
         current_key = None
         with open(file_path, 'r') as document:
             for line in document:
-                if line[0] not in {'\t', ' '}:
-                    current_key = line.strip()
-                    constraints[current_key] = {}
-                else:
-                    line_data = line.split()
-                    constraints[current_key][line_data[0]] = line_data[1]
+                if not(line.startswith('#') or line.strip() == ''):  # Skip line if empty or starts with #
+                    if line[0] not in {'\t', ' '}:  # Constraint
+                        current_key = line.strip()
+                        constraints[current_key] = {}
+                    else:  # OAR Name
+                        line_data = line.split()
+                        constraints[current_key][line_data[0]] = line_data[1]
         return constraints
 
     @property
@@ -46,7 +47,7 @@ class Protocols:
     def get_fractionations(self, protocol_name):
         fractionations = list(self.data[protocol_name])
         fractionations.sort()
-        fractionations = [fx.replace('fx', '') for fx in fractionations]
+        fractionations = [fx.replace('Fx', '') for fx in fractionations]
         return fractionations
 
     def get_rois(self, protocol_name, fractionation):

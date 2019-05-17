@@ -1,11 +1,10 @@
+# Description: 3fx Constraints per TG101
 Bladder
     D_max   28.2
     D_15    16.8
-Bowel
 Brachial Plexus
     D_max   24
     D_3     20.4
-Brachial Plexus (Ipsilateral)
 Brainstem
     D_max   23.1
     D_0.5   18
@@ -38,7 +37,6 @@ Heart/Pericardium
 Jejunum / Ileum
     D_max   25.2
     D_5     17.7
-Kidney (Ipsilateral)
 Kidney (Total)
     V_16  200
 Liver
@@ -55,7 +53,6 @@ Penile Bulb
 Rectum
     D_max   28.2
     D_20    24
-Renal Hilum / Vascular Trunk
 Rib
     D_max   36.9
     D_1     28.8
@@ -79,4 +76,3 @@ Stomach
 TBT
     D_max   30
     D_4     15
-Ureter

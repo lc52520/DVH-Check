@@ -1,11 +1,10 @@
+# Description: 1fx Constraints per TG101
 Bladder
     D_max   18.4
     D_15    11.4
-Bowel
 Brachial Plexus
     D_max   17.5
     D_3     14
-Brachial Plexus (Ipsilateral)
 Brainstem
     D_max   15
     D_0.5   10
@@ -38,7 +37,6 @@ Heart/Pericardium
 Jejunum / Ileum
     D_max   15.4
     D_5     11.9
-Kidney (Ipsilateral)
 Kidney (Total)
     V_8.4  200
 Liver
@@ -80,4 +78,3 @@ Stomach
 TBT
     D_max   20.2
     D_4     10.5
-Ureter

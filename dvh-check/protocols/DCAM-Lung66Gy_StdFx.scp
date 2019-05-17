@@ -1,0 +1,16 @@
+# Description: 33fx constraints for 66Gy Lung at DCAM
+Brachial Plexus
+    D_max   66
+Esophagus
+    D_max   72
+    Mean    34
+Heart/Pericardium
+    D_30%    40
+Lung
+    V_20    35%
+    V_5     65%
+    Mean    20
+Spinal Canal
+    D_max   50
+Spinal Cord
+    D_max   45

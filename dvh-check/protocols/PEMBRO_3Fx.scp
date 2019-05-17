@@ -1,5 +1,6 @@
+# Description: 3fx Constraints per PEMBRO
 Bile Duct
-    D_0.3   36
+    D_max   36
 Bladder
     D_max   33
     D_15    16.8
@@ -27,6 +28,7 @@ Femoral Heads
     D_10    24
 Great Vessels
     D_max   45
+    D_10    39
 Heart/Pericardium
     D_max   30
     D_15    24
@@ -37,7 +39,6 @@ Kidney (Total)
     V_15    200
 Liver
     MVS_17.1    700
-    Mean    16
 Lung
     V_20    15%
     V_11    37%

@@ -109,8 +109,9 @@ class ScoreCardView:
 
     def __do_layout(self):
 
-        self.layout = column(row(self.select_plan, self.select_protocol, self.select_fx),
-                             row(self.button_refresh_plans, self.button_calculate, self.button_delete_roi),
+        self.layout = column(self.button_refresh_plans,
+                             row(self.select_plan, self.select_protocol, self.select_fx),
+                             row(self.button_calculate, self.button_delete_roi),
                              row(self.select_roi_template, self.select_roi),
                              self.max_dose_volume,
                              self.data_table,
@@ -149,7 +150,7 @@ class ScoreCardView:
     # Properties -------------------------------------------------------------------
     @property
     def fractionation(self):
-        return "%sfx" % self.select_fx.value
+        return "%sFx" % self.select_fx.value
 
     @property
     def fractionation_options(self):
@@ -409,6 +410,7 @@ class ScoreCardView:
                 self.dvh_counts_for_plot.append(np.divide(dvh, dvh[0]))
             else:
                 self.dvh_counts_for_plot.append(np.array([0] * self.bin_count))
+            np.append(self.dvh_counts_for_plot[-1], [0])  # ensure last value is 0
             x_axis = np.divide(np.array(list(range(len(self.dvh_counts_for_plot[-1])))), 100.)
             self.bin_counts.append(x_axis)
 

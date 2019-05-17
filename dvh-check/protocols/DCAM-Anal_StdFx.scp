@@ -1,0 +1,17 @@
+# Description: Standard fx constraints for Anal at DCAM
+Bladder
+    D_60%   40
+Bone Marrow
+    D_90%   10
+    D_75%   20
+    D_750   30
+Bone Marrow (Lower Pelvis)
+    D_23%   40
+Colon (Sigmoid)
+    D_150   35
+    D_35%   35
+    D_1     50
+Femoral Heads
+    D_10%   50
+Genitalia
+    D_40%   40
