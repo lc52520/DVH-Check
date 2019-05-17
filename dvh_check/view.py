@@ -1,7 +1,6 @@
-from __future__ import print_function
 from bokeh.layouts import column, row
 from bokeh.models.widgets import Select, Button, DataTable, TableColumn, NumberFormatter, Div, HTMLTemplateFormatter
-from bokeh.models import ColumnDataSource, HoverTool, Spacer, Selection
+from bokeh.models import ColumnDataSource, HoverTool, Spacer
 from bokeh.plotting import figure
 from dicompylercore import dicomparser, dvhcalc
 from protocols import Protocols, MAX_DOSE_VOLUME
@@ -417,7 +416,7 @@ class ScoreCardView:
     def update_dvh_plot(self):
         self.calculate_dvhs()
         self.pad_dvh_counts()
-        colors = [color for j, color in itertools.izip(range(len(self.dvh_counts_for_plot)), self.colors)]
+        colors = [color for j, color in zip(range(len(self.dvh_counts_for_plot)), self.colors)]
         self.source_plot.data = {'x': self.bin_counts,
                                  'y': self.dvh_counts_for_plot,
                                  'color': colors,

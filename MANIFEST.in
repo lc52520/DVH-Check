@@ -1,3 +1,9 @@
 include README.md
 include setup.py
-recursive-include dvh-check/ *
+include MANIFEST.in
+include dvh_check/*.py
+include dvh_check/aliases.csv
+include dvh_check/template_roi_names.txt
+include dvh_check/protocols/*.scp
+include dvh_check/static/images/logo.gif
+include dvh_check/templates/index.html

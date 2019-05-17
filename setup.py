@@ -1,15 +1,16 @@
 from setuptools import setup, find_packages
 
 requires = [
-    'dicompylercore',
+    'dicompyler-core',
     'fuzzywuzzy',
-    'python-Levinshtein',
+    'python-levenshtein',
     'bokeh',
     'pydicom'
 ]
 
 setup(
-    name='dvh-check',
+    name='dvh_check',
+    python_requires='>3.5',
     include_package_data=True,
     packages=find_packages(),
     version=0.1,
@@ -24,7 +25,7 @@ setup(
     install_requires=requires,
     entry_points={
         'console_scripts': [
-            'dvh-check=dvh-check.__main__:main',
+            'dvh_check=dvh_check.__main__:main',
         ],
     },
     long_description="""DVH Checks
